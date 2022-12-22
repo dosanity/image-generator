@@ -1,1 +1,2 @@
-# image-generator
+# MNIST Image Generator
+
