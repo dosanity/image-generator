@@ -64,6 +64,8 @@ From the perceptron models, we can see that a basic neural network has three lay
 + A **single "hidden" layer** of neurons (single neuron or multiple neurons)
 + An **output layer** that reports the classification or regression model value
 
+![data-19-1-3-1-neural-network-data-flow-input-hidden-layer-output](https://user-images.githubusercontent.com/29410712/208509081-6e98751e-4d78-4c66-8963-7c3e09626c7c.png)
+
 By understanding this framework, we can dive deeper into combining multiple neural networks to train machines to generate images from scratch.
 
 ## Generative Adversarial Networks (GANs)
