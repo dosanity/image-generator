@@ -11,15 +11,27 @@ One way to use a neural network model is to create a classification algorithm th
 
 There are a number of advantages to using a neural network instead of a traditional statistical or machine learning model. For instance, neural networks are effective at detecting complex, nonlinear relationships. Additionally, neural networks have greater tolerance for messy data and can learn to ignore noisy characteristics in data. The two biggest disadvantages to using a neural network model are that the layers of neurons are often too complex to dissect and understand (creating a black box problem), and neural networks are prone to overfitting (characterizing the training data so well that it does not generalize to test data effectively). However, both of the disadvantages can be mitigated and accounted for.
 
-Conceptually, neural networks involve multi-dimensional linear equations and dot products. To simplify the explanation, we will use the **perceptron model**. The perceptron model is a single neural network unit, and it mimics a biological neuron by receiving input data, weighing the information, and producing a clear output.
+Conceptually, neural networks involve multi-dimensional linear equations and dot products. To simplify the explanation, we will use the **Rosenblatt perceptron model**. The Rosenblatt perceptron model is a binary single neural network unit, and it mimics a biological neuron by receiving input data, weighing the information, and producing a clear output.
 
-The perceptron model has four major components:
+The Rosenblatt perceptron model has four major components:
 
-+ Input values, typically labelled as x or 𝝌 (chi, pronounced kaai, as in eye)
-+ A weight coefficient for each input value, typically labelled as w or ⍵ (omega)
-+ Bias is a constant value added to the input to influence the final decision, typically labelled as w0. In other words, no matter how many inputs we have, there will always be an additional value to "stir the pot."
++ Input values, typically labelled as $x$ or 𝝌 (chi, pronounced kaai, as in eye)
++ A weight coefficient for each input value, typically labelled as $w$ or ⍵ (omega)
++ Bias is a constant value added to the input to influence the final decision, typically labelled as $w_0$.
 + A net summary function that aggregates all weighted inputs, in this case a weighted summation:
 
 ![data-19-1-2-1-weighted-summation](https://user-images.githubusercontent.com/29410712/208508271-b775459f-f379-42a5-9c54-6d8877791f0a.png)
+
+The inputs values $(x_1, x_2, \cdots, x_n)$ are multiplied with the corresponding weights $(w_1, w_2, \cdots, w_n)$ to produce the output $y$. As illustrated in the larger circle, we sum the weighted inputs to obtain the total amount of input which includes the bias term $w_0$. The equation can be rewritten as: 
+
+$$
+  y = \sum_{i=1}^n w_ix_i + w_0
+$$
+
+$$
+  y = w_1x_1 + w_2x_2 + \cdots + w_ix_i + w_0
+$$
+
+As we can see, the Rosanblatt perceptron model is just a multilinear regression model.
 
 ## Generative Adversarial Networks (GANs)
