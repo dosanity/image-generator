@@ -11,7 +11,7 @@ One way to use a neural network model is to create a classification algorithm th
 
 There are a number of advantages to using a neural network instead of a traditional statistical or machine learning model. For instance, neural networks are effective at detecting complex, nonlinear relationships. Additionally, neural networks have greater tolerance for messy data and can learn to ignore noisy characteristics in data. The two biggest disadvantages to using a neural network model are that the layers of neurons are often too complex to dissect and understand (creating a black box problem), and neural networks are prone to overfitting (characterizing the training data so well that it does not generalize to test data effectively). However, both of the disadvantages can be mitigated and accounted for.
 
-Conceptually, neural networks involve multi-dimensional linear equations and dot products. To simplify the explanation, we will use the **Rosenblatt perceptron model**. The Rosenblatt perceptron model is a binary single neural network unit, and it mimics a biological neuron by receiving input data, weighing the information, and producing a clear output.
+Conceptually, neural networks involve multi-dimensional linear equations and dot products. To simplify the explanation, we will use the **Rosenblatt perceptron model**. The Rosenblatt perceptron model was introduced in 1957 as a binary single neural network unit, and it mimics a biological neuron by receiving input data, weighing the information, and producing a clear output.
 
 The Rosenblatt perceptron model has four major components:
 
@@ -32,6 +32,38 @@ $$
   y = w_1x_1 + w_2x_2 + \cdots + w_ix_i + w_0
 $$
 
-As we can see, the Rosanblatt perceptron model is just a multilinear regression model.
+As we can see, the Rosanblatt perceptron model is just a multilinear regression model. This classic perceptron model was improved by Minsky and Papert in 1969 to create foundation for the modern neural networks. Minksy and Papert introduced the activation function. The activation function is a mathematical function applied to the end of each "neuron" (or each individual perceptron model) that transforms the output to a quantitative value. This quantitative output is used as an input value for other layers in the neural network model. There are a wide variety of activation functions that can be used for many specific purposes; however, most neural networks will use one of the following activation functions:
+
++ The **linear function** returns the sum of our weighted inputs without transformation.
++ The **sigmoid function** is identified by a characteristic S curve. It transforms the output to a range between 0 and 1.
++ The **tanh function** is also identified by a characteristic S curve; however, it transforms the output to a range between -1 and 1.
++ The **Rectified Linear Unit (ReLU) function** returns a value from 0 to infinity, so any negative input through the activation function is 0. It is the most used activation function in neural networks due to its simplifying output, but it might not be appropriate for simpler models.
++ The **Leaky ReLU function** is a "leaky" alternative to the ReLU function, whereby negative input values will return very small negative values.
+
+To illustrate this, we will apply the activation function $f$ to the original Rosanblatt perceptron model:
+
+$$
+  y = f\left(\sum_{i=1}^n w_ix_i + w_0\right)
+$$
+
+Additionally, the weighted sum can be re-written as a dot product and can be computed more efficiently. The dot product is an algebraic operation that takes the coordinates of two vectors and produces a single number. In terms of neural networks, the dot product explains the relationship between the input values and the weights. Let the vector $x = [x_1, x_2, \cdots, x_n]$ contain the inputs, and the vector $w = [w_1, w_2, \cdots, w_n]$ contain the corresponding weights. By the definition of the dot product:
+
+$$
+  \sum_{i=1}^n w_ix_i = w \cdot x
+$$
+
+Therefore the the updated perceptron model is:
+
+$$
+  y = f\left(w \cdot x + w_0\right)
+$$
+
+From the perceptron models, we can see that a basic neural network has three layers:
+
++ An **input layer** of input values transformed by weight coefficients
++ A **single "hidden" layer** of neurons (single neuron or multiple neurons)
++ An **output layer** that reports the classification or regression model value
+
+By understanding this framework, we can dive deeper into combining multiple neural networks to train machines to generate images from scratch.
 
 ## Generative Adversarial Networks (GANs)
