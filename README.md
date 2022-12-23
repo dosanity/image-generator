@@ -9,7 +9,7 @@ Neural networks (also known as artificial neural networks, or ANN) are a set of 
 
 One way to use a neural network model is to create a classification algorithm that determines if an input belongs in one category versus another. Alternatively neural network models can behave like a regression model, where a dependent output variable can be predicted from independent input variables. Therefore, neural network models can be an alternative to many of the models we have learned throughout the course, such as random forest, logistic regression, or multiple linear regression.
 
-There are a number of advantages to using a neural network instead of a traditional statistical or machine learning model. For instance, neural networks are effective at detecting complex, nonlinear relationships. Additionally, neural networks have greater tolerance for messy data and can learn to ignore noisy characteristics in data. The two biggest disadvantages to using a neural network model are that the layers of neurons are often too complex to dissect and understand (creating a black box problem), and neural networks are prone to overfitting (characterizing the training data so well that it does not generalize to test data effectively). However, both of the disadvantages can be mitigated and accounted for.
+There are a number of advantages to using a neural network instead of a traditional statistical or machine learning model. For instance, neural networks are effective at detecting complex, nonlinear relationships and can approximate any function based on the Universal Approximation Theorem. Additionally, neural networks have greater tolerance for messy data and can learn to ignore noisy characteristics in data. The two biggest disadvantages to using a neural network model are that the layers of neurons are often too complex to dissect and understand (creating a black box problem), and neural networks are prone to overfitting (characterizing the training data so well that it does not generalize to test data effectively). However, both of the disadvantages can be mitigated and accounted for.
 
 Conceptually, neural networks involve multi-dimensional linear equations and dot products. To simplify the explanation, we will use the **Rosenblatt perceptron model**. The Rosenblatt perceptron model was introduced in 1957 as a binary single neural network unit, and it mimics a biological neuron by receiving input data, weighing the information, and producing a clear output.
 
@@ -83,6 +83,73 @@ There are several versions of the MNIST dataset. We used the one that is built-i
 ![original](https://user-images.githubusercontent.com/29410712/209283904-afd02e91-e6ed-42fc-b596-a0253aada742.png)
 
 ## Generative Adversarial Networks (GANs)
+
+Generative Adversarial Networks uses deep learning methods to discover patterns in the input data to generate new instances of data. It is an unsupervised machine learning model that utilizes the zero-sum game. The zero-sum game is a mathematical representation in game theory of a situation which involves two sides. It is a competitive game where the advantage of one side is a disadvantage for the other. GANs is built from two neural network models: the generator model and the discriminator model. 
+
+![image](https://user-images.githubusercontent.com/29410712/209293134-032a6aec-827e-4a53-a7f4-741938a94899.png)
+
+The generator creates images by learning the joint probability distribution of the input variable and the output variable:
+
+$$
+  P(X,Y) = P(X|Y)\text{ }P(Y) = P(Y|X)\text{ }P(X)
+$$
+
+This model takes randomly sampled noise distribution data $(z)$ to produce a fake image $(G(z))$. Additionally, the domain of the training data has to be the same as the range of $G(z)$ since we are trying to replicate the training data.
+
+The discriminator attempts to classify these fake images $(G(z))$ as real or fake by learning the conditional probability of the target variable given the input variable:
+
+$$
+  P(Y|X = x)
+$$
+
+In other words, this model learns from the training data and acts as a binary classifier to determine if the reconstructed data $(G(z))$ is from the training data. The descriminator attempts to maximize the chances of predicting the correct classes.
+
+The goal of the generator is to fool the discriminator therefore minimizing the probability that the discriminator is correct and the goal of the discriminator is to maximize the probability to classify the generated images as fake. Thus, a zero-sum game.
+
+### Zero-Sum Game
+
+The mathematical expression to determine the optimal results in the zero-sum game is called the value function $(V(G,D))$. In order to create $V(G,D)$ we must use the binary cross-entropy loss function. This function measures the performance of a classification model whose output is a probability value between 0 and 1.
+
+$$
+\begin{aligned}
+  L = - \sum_{i=0}^n y\log\hat{y} + (1-y)\log(1-\hat{y})
+\end{aligned}
+$$
+
+**Training Data**: 
+
+Let $y = 1$ and $\hat{y} = D(x)$ $\implies L = \log (D(x)$
+
+**Reconstructed Data**: 
+
+Let $y = 0$ and $\hat{y} = D(G(z))$ $\implies L = \log (1 - D(G(z))$
+
+By applying the expectation and combining the previous binary cross-entropy loss functions, we get:
+
+$$
+\displaystyle{\min_{G}}\text{ }\displaystyle{\max_{D}}\text{ }V(G,D) =
+$$
+
+
+$$
+  E\bigl(\log (D(x)\bigl) + E\Bigl(\log \bigl(1 - D(G(z)\bigl)\Bigl)
+$$
+
+To optimze the loss function for the neural network, we will be applying stochastic processes. By holding the learning of the generator $(G)$ fixed and let $m$ be the data samples + the fake data samples, we can update the parameters of our discriminator $\theta_d$ using the stochastic gradient descent and partial derivative:
+
+$$
+  \frac{\partial}{\partial \theta_d} \frac{1}{m} \Bigl(log\bigl(D(x)\bigl) + log\bigl(1-D(G(z))\bigl)\Bigl)
+$$
+
+Now by holding the learning of the discriminator $(D)$ fixed and let $m$ be the fake data samples, we can update the parameters of our generator $\theta_g$ using the stochastic gradient descent and partial derivative:
+
+$$
+  \frac{\partial}{\partial \theta_g} \frac{1}{m} \Bigl(log\bigl(1-D(G(z))\bigl)\Bigl)
+$$
+
+Since both the generator and the discriminator is trying to optimize, eventually the results will converge. In other words, it would be impossible for the discriminator to tell the difference between the trained data and the reconstructed data created from the generator. In reality, Generative Adversarial Networks are extremely complex and training it to achieve perfection would prove to be difficult.
+
+## Results
 
 ![mnist](https://user-images.githubusercontent.com/29410712/209286611-602f38d9-af15-4124-9310-9a9cb51ac57f.gif)
 
