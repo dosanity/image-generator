@@ -34,9 +34,9 @@ $$
 
 As we can see, the Rosanblatt perceptron model is just a multilinear regression model. This classic perceptron model was improved by Minsky and Papert in 1969 to create foundation for the modern neural networks. Minksy and Papert introduced the activation function. The activation function is a mathematical function applied to the end of each "neuron" (or each individual perceptron model) that transforms the output to a quantitative value. This quantitative output is used as an input value for other layers in the neural network model. There are a wide variety of activation functions that can be used for many specific purposes; however, most neural networks will use one of the following activation functions:
 
-+ The **linear function** returns the sum of our weighted inputs without transformation.
-+ The **sigmoid function** is identified by a characteristic S curve. It transforms the output to a range between 0 and 1.
-+ The **tanh function** is also identified by a characteristic S curve; however, it transforms the output to a range between -1 and 1.
++ The **Linear function** returns the sum of our weighted inputs without transformation.
++ The **Sigmoid function** is identified by a characteristic S curve. It transforms the output to a range between 0 and 1.
++ The **TanH function** is also identified by a characteristic S curve; however, it transforms the output to a range between -1 and 1.
 + The **Rectified Linear Unit (ReLU) function** returns a value from 0 to infinity, so any negative input through the activation function is 0. It is the most used activation function in neural networks due to its simplifying output, but it might not be appropriate for simpler models.
 + The **Leaky ReLU function** is a "leaky" alternative to the ReLU function, whereby negative input values will return very small negative values.
 
@@ -88,6 +88,8 @@ Generative Adversarial Networks uses deep learning methods to discover patterns 
 
 ![image](https://user-images.githubusercontent.com/29410712/209293134-032a6aec-827e-4a53-a7f4-741938a94899.png)
 
+## The Generator
+
 The generator creates images by learning the joint probability distribution of the input variable and the output variable:
 
 $$
@@ -95,6 +97,71 @@ $$
 $$
 
 This model takes randomly sampled noise distribution data $(z)$ to produce a fake image $(G(z))$. Additionally, the domain of the training data has to be the same as the range of $G(z)$ since we are trying to replicate the training data.
+
+> Python Code
+
+```
+def build_generator():
+
+    model = Sequential()
+
+    # Generator first hidden layer
+    model.add(Dense(256, input_dim=latent_dim))
+    model.add(LeakyReLU(alpha=0.2))
+    model.add(BatchNormalization(momentum=0.8))
+    
+    # Generator second hidden layer
+    model.add(Dense(512))
+    model.add(LeakyReLU(alpha=0.2))
+    model.add(BatchNormalization(momentum=0.8))
+    
+    # Generator third hidden layer
+    model.add(Dense(1024))
+    model.add(LeakyReLU(alpha=0.2))
+    model.add(BatchNormalization(momentum=0.8))
+    
+    # Generator output layer
+    model.add(Dense(np.prod(img_shape), activation='tanh'))
+    model.add(Reshape(img_shape))
+
+    model.summary()
+
+    noise = Input(shape=(latent_dim,))
+    img = model(noise)
+
+    return Model(noise, img)
+```
+
+As stated before, the generator is a neural networks model that uses three hidden layers with the Leaky ReLU function. The output layer uses the TanH activation function.
+
++ First Hidden Layer: 25856 params = [100 inputs (from input layer) * 256 neurons] + (256 bias terms)
++ Second Hidden Layer: 131584 params = [256 inputs (from first hidden layer) * 512 neurons] + (512 bias terms)
++ Third Hidden Layer: 525312 params = [80 inputs (from first hidden layer) * 1024 neurons] + (1024 bias terms)
++ Output Layer: 803600 params = [1024 inputs (from second hidden layer) * 784 neuron] + (784 bias term)
+
+```
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ dense (Dense)               (None, 256)               25856 
+ batch_normalization                                   1024
+                                                                 
+ dense_1 (Dense)             (None, 512)               131584  
+ batch_normalization                                   2048
+                                                                 
+ dense_2 (Dense)             (None, 1024)              525312    
+ batch_normalization                                   4096         
+                                                                 
+ dense_3 (Dense)             (None, 784)               803600           
+                                                                 
+=================================================================
+Total params: 1,493,520
+Trainable params: 1,489,936
+Non-trainable params: 3,584
+_________________________________________________________________
+```
+
+## The Discriminator
 
 The discriminator attempts to classify these fake images $(G(z))$ as real or fake by learning the conditional probability of the target variable given the input variable:
 
@@ -104,9 +171,60 @@ $$
 
 In other words, this model learns from the training data and acts as a binary classifier to determine if the reconstructed data $(G(z))$ is from the training data. The descriminator attempts to maximize the chances of predicting the correct classes.
 
-The goal of the generator is to fool the discriminator therefore minimizing the probability that the discriminator is correct and the goal of the discriminator is to maximize the probability to classify the generated images as fake. Thus, a zero-sum game.
+> Python Code
 
-### Zero-Sum Game
+```
+def build_discriminator():
+
+    model = Sequential()
+    
+    model.add(Flatten(input_shape=img_shape))
+    
+    # Discriminator first hidden layer
+    model.add(Dense(512))
+    model.add(LeakyReLU(alpha=0.2))
+    
+    # Discriminator second hidden layer
+    model.add(Dense(256))
+    model.add(LeakyReLU(alpha=0.2))
+    
+    # Discriminator output layer
+    model.add(Dense(1, activation='sigmoid'))
+    
+    model.summary()
+
+    img = Input(shape=img_shape)
+    validity = model(img)
+
+    return Model(img, validity)
+```
+
+As stated before, the discriminator is also a neural networks model that but uses two hidden layers with the Leaky ReLU function. Since we need the output to be a binary classifier, the output layer uses the Sigmoid activation function.
+
++ First Hidden Layer: 401920 params = [784 inputs (from generator output layer) * 512 neurons] + (512 bias terms)
++ Second Hidden Layer: 131328 params = [512 inputs (from first hidden layer) * 256 neurons] + (256 bias terms)
++ Output Layer: 257 params = [256 inputs (from second hidden layer) * 1 neuron] + (1 bias term)
+
+```
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================                                                              
+ dense_4 (Dense)             (None, 512)               401920         
+                                                                 
+ dense_5 (Dense)             (None, 256)               131328           
+                                                                 
+ dense_6 (Dense)             (None, 1)                 257       
+                                                                 
+=================================================================
+Total params: 533,505
+Trainable params: 533,505
+Non-trainable params: 0
+_________________________________________________________________
+```
+
+## Zero-Sum Game
+
+The goal of the generator is to fool the discriminator therefore minimizing the probability that the discriminator is correct and the goal of the discriminator is to maximize the probability to classify the generated images as fake. Thus, a zero-sum game.
 
 The mathematical expression to determine the optimal results in the zero-sum game is called the value function $(V(G,D))$. In order to create $V(G,D)$ we must use the binary cross-entropy loss function. This function measures the performance of a classification model whose output is a probability value between 0 and 1.
 
