@@ -4,6 +4,10 @@
 
 Artificial intelligence (AI) is the simulation of human intelligence processes by machines. AI is divided into three stages: Artificial Narrow Intelligence (ANI), Artificial General Intelligence (AGI), and Artificial Super Intelligence (ASI). ANI involves machine learning and specializes in one area, AGI refers to a machine's ability to understand or learn any intellectual task similar to a human, and ASI entails having the intellectual powers beyond any humans. Currently, superintelligence is hypothetical and the technology does not exist. In this analysis, we we will breakdown the components of the Generative Adversarial Networks (GANs) and generate images using the MNIST dataset. The purpose is to introduce the idea of using deep neural networks for artificial intelligence. 
 
+### Resources
++ Software: Python 3.10, Jupyter Lab 3.4.4
++ Data Source: [Keras MNIST](https://www.tensorflow.org/datasets/catalog/mnist)
+
 ## Artificial Neural Networks
 Neural networks (also known as artificial neural networks, or ANN) are a set of algorithms that are modeled after the human brain and is categorized as Artificial General Intelligence. Neural networks are an advanced form of machine learning that recognizes patterns and features in input data and provides a clear quantitative output. In its simplest form, a neural network contains layers of neurons, which perform individual computations. These computations are connected and weighed against one another until the neurons reach the final layer, which returns a numerical result, or an encoded categorical result.
 
@@ -313,8 +317,10 @@ Since both the generator and the discriminator is trying to optimize, eventually
 ![800](https://user-images.githubusercontent.com/29410712/209316516-d22f1dce-dddf-4e36-b1cb-44061b396fce.png)
 ![29800](https://user-images.githubusercontent.com/29410712/209316355-434bf480-0550-4ecf-9fc9-a68cdbff97b9.png)
 
-## Resources
-+ GAN Model: eriklindernoren ([GitHub](https://github.com/eriklindernoren/Keras-GAN#gan))
-+ Data Source: [Keras MNIST](https://www.tensorflow.org/datasets/catalog/mnist)
-+ Research: [Rosenblatt's Perceptron](https://maelfabien.github.io/deeplearning/Perceptron/)
-+ Software: Python 3.10, Jupyter Lab 3.4.4
+### Sources:
++ https://github.com/eriklindernoren/Keras-GAN#gan
++ https://maelfabien.github.io/deeplearning/Perceptron/
++ https://news.mit.edu/2017/explained-neural-networks-deep-learning-0414
++ https://towardsdatascience.com/rosenblatts-perceptron-the-very-first-neural-network-37a3ec09038a
++ https://www.tensorflow.org/datasets/catalog/mnist
+
