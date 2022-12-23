@@ -80,6 +80,13 @@ There are several versions of the MNIST dataset. We used the one that is built-i
 + **Dimensionality**: 784 (28 x 28)
 + **Pixel Values**: 0 - 255
 
+> Python Code
+
+```
+from keras.datasets import mnist
+(X_train, Y_train), (X_test, Y_test) = mnist.load_data()
+```
+
 ![original](https://user-images.githubusercontent.com/29410712/209283904-afd02e91-e6ed-42fc-b596-a0253aada742.png)
 
 ## Generative Adversarial Networks (GANs)
@@ -130,6 +137,15 @@ def generator_function():
     img = model(noise)
 
     return Model(noise, img)
+```
+
+```
+# Build the generator
+generator = generator_function()
+
+# The generator takes noise as input and generates images
+z = Input(shape=(latent_dim,))
+img = generator(z)
 ```
 
 As stated before, the generator is a neural networks model that uses three hidden layers with the Leaky ReLU function. The output layer uses the TanH activation function.
@@ -199,6 +215,15 @@ def discriminator_function():
     return Model(img, validity)
 ```
 
+```
+# Build the discriminator
+discriminator = discriminator_function()
+discriminator.compile(loss='binary_crossentropy', optimizer=optimizer, metrics=['accuracy'])
+
+# The discriminator takes generated images as input and determines validity (binary classifier)
+validity = discriminator(img)
+```
+
 As stated before, the discriminator is also a neural networks model that but uses two hidden layers with the Leaky ReLU function. Since we need the output to be a binary classifier, the output layer uses the Sigmoid activation function.
 
 + First Hidden Layer: 401920 params = [784 inputs (from generator output layer) * 512 neurons] + (512 bias terms)
@@ -225,6 +250,16 @@ _________________________________________________________________
 ## Zero-Sum Game
 
 The goal of the generator is to fool the discriminator therefore minimizing the probability that the discriminator is correct and the goal of the discriminator is to maximize the probability to classify the generated images as fake. Thus, a zero-sum game.
+
+> Python Code
+
+```
+# Build the GAN
+GAN = Model(z, validity)
+
+# Train the generator to fool the discriminator
+GAN.compile(loss='binary_crossentropy', optimizer=optimizer, metrics=['accuracy'])
+```
 
 The mathematical expression to determine the optimal results in the zero-sum game is called the value function $(V(G,D))$. In order to create $V(G,D)$ we must use the binary cross-entropy loss function. This function measures the performance of a classification model whose output is a probability value between 0 and 1.
 
@@ -276,6 +311,9 @@ Since both the generator and the discriminator is trying to optimize, eventually
 ![400](https://user-images.githubusercontent.com/29410712/209316339-d7f33650-51fc-4b89-bb68-7ff2ec7b11ad.png)
 ![600](https://user-images.githubusercontent.com/29410712/209316510-bb5fa14f-9302-41d7-a75d-28cd67538ae4.png)
 ![800](https://user-images.githubusercontent.com/29410712/209316516-d22f1dce-dddf-4e36-b1cb-44061b396fce.png)
-
 ![29800](https://user-images.githubusercontent.com/29410712/209316355-434bf480-0550-4ecf-9fc9-a68cdbff97b9.png)
 
+## Resources
++ GAN Model: eriklindernoren ([GitHub](https://github.com/eriklindernoren/Keras-GAN#gan))
++ Data Source: [Keras MNIST Data](https://www.tensorflow.org/datasets/catalog/mnist)
++ Software: Python 3.10, Jupyter Lab 3.4.4
