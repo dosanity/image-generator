@@ -101,7 +101,7 @@ This model takes randomly sampled noise distribution data $(z)$ to produce a fak
 > Python Code
 
 ```
-def build_generator():
+def generator_function():
 
     model = Sequential()
 
@@ -174,7 +174,7 @@ In other words, this model learns from the training data and acts as a binary cl
 > Python Code
 
 ```
-def build_discriminator():
+def discriminator_function():
 
     model = Sequential()
     
