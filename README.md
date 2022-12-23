@@ -315,5 +315,6 @@ Since both the generator and the discriminator is trying to optimize, eventually
 
 ## Resources
 + GAN Model: eriklindernoren ([GitHub](https://github.com/eriklindernoren/Keras-GAN#gan))
-+ Data Source: [Keras MNIST Data](https://www.tensorflow.org/datasets/catalog/mnist)
++ Data Source: [Keras MNIST](https://www.tensorflow.org/datasets/catalog/mnist)
++ Research: [Rosenblatt's Perceptron](https://maelfabien.github.io/deeplearning/Perceptron/)
 + Software: Python 3.10, Jupyter Lab 3.4.4
