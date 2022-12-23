@@ -153,3 +153,11 @@ Since both the generator and the discriminator is trying to optimize, eventually
 
 ![mnist](https://user-images.githubusercontent.com/29410712/209286611-602f38d9-af15-4124-9310-9a9cb51ac57f.gif)
 
+![0](https://user-images.githubusercontent.com/29410712/209316318-56695d7a-7814-41f0-890f-6c31aaf0b9c3.png)
+![200](https://user-images.githubusercontent.com/29410712/209316328-169794f5-c98a-4411-9aac-5507bd67796e.png)
+![400](https://user-images.githubusercontent.com/29410712/209316339-d7f33650-51fc-4b89-bb68-7ff2ec7b11ad.png)
+![600](https://user-images.githubusercontent.com/29410712/209316510-bb5fa14f-9302-41d7-a75d-28cd67538ae4.png)
+![800](https://user-images.githubusercontent.com/29410712/209316516-d22f1dce-dddf-4e36-b1cb-44061b396fce.png)
+
+![29800](https://user-images.githubusercontent.com/29410712/209316355-434bf480-0550-4ecf-9fc9-a68cdbff97b9.png)
+
