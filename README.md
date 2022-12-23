@@ -68,4 +68,21 @@ From the perceptron models, we can see that a basic neural network has three lay
 
 By understanding this framework, we can dive deeper into combining multiple neural networks to train machines to generate images from scratch.
 
+## The MNIST Data
+
+The MNIST (Modified National Institute of Standards and Technology) database consists of images of handwritten digits, together with labels indicating which digit is in each image. Since both the features and the labels are present in this dataset, the MNIST data is frequently used for training various image processing systems.
+
+There are several versions of the MNIST dataset. We used the one that is built-into keras, described [here](https://www.tensorflow.org/datasets/catalog/mnist).
+
++ **Classes**: 10 
++ **Training Set**: 60,000 
++ **Testing Set**: 10,000 
++ **Dimensionality**: 784 (28 x 28)
++ **Pixel Values**: 0 - 255
+
+![original](https://user-images.githubusercontent.com/29410712/209283904-afd02e91-e6ed-42fc-b596-a0253aada742.png)
+
 ## Generative Adversarial Networks (GANs)
+
+![mnist](https://user-images.githubusercontent.com/29410712/209286611-602f38d9-af15-4124-9310-9a9cb51ac57f.gif)
+
