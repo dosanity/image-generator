@@ -318,6 +318,7 @@ Since both the generator and the discriminator is trying to optimize, eventually
 ![29800](https://user-images.githubusercontent.com/29410712/209316355-434bf480-0550-4ecf-9fc9-a68cdbff97b9.png)
 
 ### Sources:
++ University of Utah, Lecture on Neural Networks
 + https://github.com/eriklindernoren/Keras-GAN#gan
 + https://maelfabien.github.io/deeplearning/Perceptron/
 + https://news.mit.edu/2017/explained-neural-networks-deep-learning-0414
