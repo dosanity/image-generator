@@ -5,7 +5,8 @@
 Artificial intelligence (AI) is the simulation of human intelligence processes by machines. AI is divided into three stages: Artificial Narrow Intelligence (ANI), Artificial General Intelligence (AGI), and Artificial Super Intelligence (ASI). ANI involves machine learning and specializes in one area, AGI refers to a machine's ability to understand or learn any intellectual task like a human, and ASI entails having intellectual powers beyond any humans. Currently, superintelligence is hypothetical and the technology does not exist. In this analysis, we will break down the components of the Generative Adversarial Networks (GANs) and generate images using the MNIST dataset. The purpose is to introduce the idea of using deep neural networks for artificial intelligence. 
 
 ### Resources
-+ Software: Python 3.10, Jupyter Lab 3.4.4
++ Software: `Jupyter Lab 3.4.4`
++ Programming Languages: `Python 3.10`
 + Data Source: [Keras MNIST](https://www.tensorflow.org/datasets/catalog/mnist)
 
 ## Artificial Neural Networks
